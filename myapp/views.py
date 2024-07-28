@@ -1,43 +1,85 @@
-from django.http import HttpResponse
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from.serializers import UserSerializer
-from django.contrib.auth.models import User
-from rest_framework.authtoken.models import Token
-from rest_framework import status
-from django.shortcuts import get_object_or_404
-from rest_framework.decorators import authentication_classes, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
-@api_view(['POST'])
-def login(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
-    if username and password:
-        user = get_object_or_404(User, username=username)
-        if user and user.check_password(password):
-            token, created = Token.objects.get_or_create(user=user)
-            serializer = UserSerializer(instance=user)
-            return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
-    return Response({"error": "invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+from rest_framework import generics
+from rest_framework import generics
+from .models.Asistencia import Asistencia
+from .models.Estudiante import Estudiante
+from .models.FaltaAsistencia import FaltaAsistencia
+from .models.FaltaPago import FaltaPago
+from .models.Justificacion import Justificacion
+from .models.Pago import Pago
+from .models.servicio import servicio
+from .models.University import University
+from .serializers import AsistenciaSerializer, EstudianteSerializer, FaltaAsistenciaSerializer, FaltaPagoSerializer, JustificacionSerializer, PagoSerializer, ServicioSerializer, UniversitySerializer
 
-@api_view(['POST'])
-def register(request):
-    print(request.data)
-    serializer = UserSerializer(data=request.data)
-    if serializer.is_valid():
-        user = serializer.save()
-        user.set_password(request.data['password'])
-        user.email = request.data['email']  # Agregué esta línea
-        user.save()
-        token = Token.objects.create(user=user)
-        return Response({'token': token.key, "user": serializer.data}, status=status.HTTP_201_CREATED)
+from .serializers import AsistenciaSerializer, EstudianteSerializer, FaltaAsistenciaSerializer, FaltaPagoSerializer, JustificacionSerializer, PagoSerializer, ServicioSerializer, UniversitySerializer
 
-@api_view(['GET'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
-def profile(request):
-    print(request.user)
-    user = request.user
-    serializer = UserSerializer(instance=user)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+# Vistas para el modelo Asistencia
+class AsistenciaListCreate(generics.ListCreateAPIView):
+    queryset = Asistencia.objects.all()
+    serializer_class = AsistenciaSerializer
+
+class AsistenciaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Asistencia.objects.all()
+    serializer_class = AsistenciaSerializer
+
+# Vistas para el modelo Estudiante
+class EstudianteListCreate(generics.ListCreateAPIView):
+    queryset = Estudiante.objects.all()
+    serializer_class = EstudianteSerializer
+
+class EstudianteDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Estudiante.objects.all()
+    serializer_class = EstudianteSerializer
+
+# Vistas para el modelo FaltaAsistencia
+class FaltaAsistenciaListCreate(generics.ListCreateAPIView):
+    queryset = FaltaAsistencia.objects.all()
+    serializer_class = FaltaAsistenciaSerializer
+
+class FaltaAsistenciaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FaltaAsistencia.objects.all()
+    serializer_class = FaltaAsistenciaSerializer
+
+# Vistas para el modelo FaltaPago
+class FaltaPagoListCreate(generics.ListCreateAPIView):
+    queryset = FaltaPago.objects.all()
+    serializer_class = FaltaPagoSerializer
+
+class FaltaPagoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FaltaPago.objects.all()
+    serializer_class = FaltaPagoSerializer
+
+# Vistas para el modelo Justificacion
+class JustificacionListCreate(generics.ListCreateAPIView):
+    queryset = Justificacion.objects.all()
+    serializer_class = JustificacionSerializer
+
+class JustificacionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Justificacion.objects.all()
+    serializer_class = JustificacionSerializer
+
+# Vistas para el modelo Pago
+class PagoListCreate(generics.ListCreateAPIView):
+    queryset = Pago.objects.all()
+    serializer_class = PagoSerializer
+
+class PagoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Pago.objects.all()
+    serializer_class = PagoSerializer
+
+# Vistas para el modelo Servicio
+class ServicioListCreate(generics.ListCreateAPIView):
+    queryset = servicio.objects.all()
+    serializer_class = ServicioSerializer
+
+class ServicioDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = servicio.objects.all()
+    serializer_class = ServicioSerializer
+
+# Vistas para el modelo University
+class UniversityListCreate(generics.ListCreateAPIView):
+    queryset = University.objects.all()
+    serializer_class = UniversitySerializer
+
+class UniversityDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = University.objects.all()
+    serializer_class = UniversitySerializer
