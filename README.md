@@ -13,10 +13,10 @@
     </theader>
     <tbody>
         <tr>
-        <td colspan="2"><span style="font-weight:bold;">Proyecto web</span>: Desarrollo de una aplicación web para inscripción de laboratorios</td>
+        <td colspan="2"><span style="font-weight:bold;">Proyecto web</span>: Desarrollo de una aplicación web para Comedor Universitario</td>
         </tr>
         <tr>
-        <td colspan="2"><span style="font-weight:bold;">Fecha</span>:  2022/08/09</td>
+        <td colspan="2"><span style="font-weight:bold;">Fecha</span>:  2024/07/28</td>
         </tr>
     </tbody>
 </table>
@@ -39,8 +39,8 @@
         <td>SEMESTRE:</td><td>III</td>
     </tr>
     <tr>
-        <td>FECHA INICIO:</td><td>31-Jul-2023</td><td>FECHA FIN:</td>
-        <td>06-Ago-2023</td><td>DURACIÓN:</td><td>04 horas</td>
+        <td>FECHA INICIO:</td><td>21-Jul-2024</td><td>FECHA FIN:</td>
+        <td>28-Jul-2024</td><td>DURACIÓN:</td><td>04 horas</td>
     </tr>
     <tr>
         <td colspan="3">DOCENTES:
@@ -65,42 +65,126 @@
 [![Java][Java]][java-site]
 
 ##  Tipo de Sistema
-    Se trata de una aplicación web construida con el framework Django 4, que permita la inscripción de los alumnos en los horarios de laboratorios establecidos cada inicio de semestre.
+    Se trata de una aplicación web, que permita la visualización y notificación de información personal sobre el comedor universitario a los comensales.
 
 ##  Requisitos del sistema
     El sistema debe satisfacer los siguientes requisitos funcionales y no funcionales:
 
     - RQ01 : El sistema debe estar disponible en Internet a traves de una URL.
     - RQ02 : El sistema debe permitir el inicio/cierre de sesión.
-    - RQ03 : El sistema debe permitir gestionar el año académico, cursos, profesores y las asignaciones de carga académica.
-    -   ...
+    - RQ03 : El sistema debe permitir visualizar el estado de pagos y faltas de cada comensal.
 
 ##  Modelo de datos
     El modelo de datos esta conformado por las siguientes entidades.
 
     -   Curso : En esta entidad se almacena la información de los cursos o asignaturas que se imparten en una Escuela Profesional. Ejemplo: Programación Web 2, III semestre, 02 horas teóricas, 04 horas de laboratorio, etc..
     -   Profesor : En esta entidad se almacena los datos de los profesores que se responsabilizan del avance académico en la enseñanza de los temas planificados en cada curso. Ejemplo: Richart Escobedo, rescobedoq@unsa.edu.pe, Magister, etc.
-
-    ...
+    -   Asistencia: En esta entidad se almacena la información sobre la asistencia diaria a cada una de las comidas de cada usuario mediante una variable booleana
+    -   Estudiante: Esta entidad recopila la información necesaria sobre el estudiante con relación al comedor universitario, variables como: asistencia, nombre, escuela, tipo de servicio requerido(Desayuno, Almuerzo o cena), sede de comedor, etc.
+    -   FaltaAsistencia: En esta entidad se almacena información sobre la falta a una de las comidas requeridas por el usuario, marcando la fecha y comida de falta.
+    -   FaltaPago: En esta entidad se guarda información sobre alguna falta de pago del usuario, se almacena fecha.
+    -   Justificacion: Esta entidad guarda las posibles justficaciones brindadas por el usuario con relación a una falta de pago o asistencia.
+    -   Pago: En esta entidad se almacenan los pagos realizados por cada usuario.
+    -   Servicio: Esta entidad define el tipo de servicio que requiere el estudiante dentro de la semana.
+    -   Universidad: Esta entidad guarda el nombre de la universidad y almacena el sistema en general.
 
 ##  Diccionario de datos
 
-    En la construcción de software y en el diccionario de datos sobre todo se recomienda y se utilizará el idioma inglés para especificar objetos, atributos, etc.
+    A continuación el diccionario de datos.
 
-| Course | | | | | |
+| Asistencia | | | | | |
 | -- | -- | -- | -- | -- | -- |
 | Atributo  | Tipo  | Nulo | Clave | Predeterminado | Descripción |
-| code  | Numerico| No | Si | Ninguno | Código |
-| name  | Cadena| No | No | Ninguno | Nombre |
-...
+| estudiante | -- | -- | -- | -- | -- |
+| user | -- | -- | -- | -- | -- |
+| id_asistencia | Numérico | No | Sí | Ninguno | ID de Asistencia |
+| status | Booleano | No | No | false | Estatus de asistencia |
+| created | Date | No | No | /// | Fecha de creación |
+| modified | Date | No | No | /// | Fecha de modificación |
 
-| Teacher | | | | | |
+| Estudiante | | | | | |
 | -- | -- | -- | -- | -- | -- |
 | Atributo  | Tipo  | Nulo | Clave | Predeterminado | Descripción |
-| code  | Numerico| No | Si | Ninguno | Código |
-| name | Cadena| No | No | Ninguno | Nombres |
-| email | Cadena| No | No | Ninguno | Correo electrónico |
-| gender | Fecha| Si | No | NULL | Fecha de nacimiento |
+| id_Estudiante | Numérico | No | Sí | Ninguno | ID de Estudiante |
+| id_user | Numérico | No | No | 1 | ID de Usuario |
+| nombre | Cadena | No | No | Ninguno | Nombre del Estudiante |
+| apellido | Cadena | No | No | Ninguno | Apellido del Estudiante |
+| carrera | Cadena | No | No | Ninguno | Carrera del Estudiante |
+| correo | Cadena | No | No | Ninguno | Correo del Estudiante |
+| status | Booleano | No | No | false | Estatus del Estudiante |
+| created | Fecha y Hora | No | No | /// | Fecha de creación |
+| modified | Fecha y Hora | No | No | /// | Fecha de modificación |
+
+| FaltaAsistencia | | | | | |
+| -- | -- | -- | -- | -- | -- |
+| Atributo  | Tipo  | Nulo | Clave | Predeterminado | Descripción |
+| Asistencia | Relación | No | No | Ninguno | Asistencia relacionada |
+| id_user | Relación | No | No | 1 | Universidad relacionada |
+| id_FaltaAsistencia | Numérico | No | Sí | Ninguno | ID de Falta de Asistencia |
+| fecha | Fecha y Hora | No | No | /// | Fecha de creación |
+| status | Booleano | No | No | false | Estatus de la Falta de Asistencia |
+| created | Fecha y Hora | No | No | /// | Fecha de creación |
+| modified | Fecha y Hora | No | No | /// | Fecha de modificación |
+
+| FaltaPago | | | | | |
+| -- | -- | -- | -- | -- | -- |
+| Atributo  | Tipo  | Nulo | Clave | Predeterminado | Descripción |
+| pago | Relación | No | No | Ninguno | Pago relacionado |
+| id_user | Relación | No | No | 1 | Universidad relacionada |
+| semana | Numérico | No | No | 1 | Semana de la falta de pago |
+| status | Booleano | No | No | false | Estatus de la falta de pago |
+| created | Fecha y Hora | No | No | /// | Fecha de creación |
+| modified | Fecha y Hora | No | No | /// | Fecha de modificación |
+| id_falta_pago | Numérico | No | Sí | Ninguno | ID de la falta de pago |
+
+
+| Justificacion | | | | | |
+| -- | -- | -- | -- | -- | -- |
+| Atributo  | Tipo  | Nulo | Clave | Predeterminado | Descripción |
+| FaltaAsistencia | Relación | No | No | Ninguno | Falta de asistencia relacionada |
+| id_user | Relación | No | No | 1 | Universidad relacionada |
+| id_justificacion | Numérico | No | Sí | Ninguno | ID de la justificación |
+| descripcion | Texto | No | No | Ninguno | Descripción de la justificación |
+| fecha | Fecha y Hora | No | No | /// | Fecha de creación |
+| status | Booleano | No | No | false | Estatus de la justificación |
+| created | Fecha y Hora | No | No | /// | Fecha de creación |
+| modified | Fecha y Hora | No | No | /// | Fecha de modificación |
+
+| Pago | | | | | |
+| -- | -- | -- | -- | -- | -- |
+| Atributo  | Tipo  | Nulo | Clave | Predeterminado | Descripción |
+| Estudiante | Relación | No | No | Ninguno | Estudiante relacionado |
+| id_user | Relación | No | No | 1 | Universidad relacionada |
+| id_pago | Numérico | No | Sí | Ninguno | ID del pago |
+| semana | Numérico | No | No | 1 | Semana del pago |
+| monto | Flotante | No | No | 0.0 | Monto del pago |
+| status | Booleano | No | No | false | Estatus del pago |
+| created | Fecha y Hora | No | No | /// | Fecha de creación |
+| modified | Fecha y Hora | No | No | /// | Fecha de modificación |
+
+| Servicio | | | | | |
+| -- | -- | -- | -- | -- | -- |
+| Atributo  | Tipo  | Nulo | Clave | Predeterminado | Descripción |
+| id_pago | Relación | No | No | Ninguno | Pago relacionado |
+| in_user | Relación | No | No | 1 | Universidad relacionada |
+| id_servicio | Numérico | No | Sí | Ninguno | ID del servicio |
+| tipo | Cadena | No | No | Ninguno | Tipo de servicio |
+| status | Booleano | No | No | false | Estatus del servicio |
+| fecha | Fecha y Hora | No | No | /// | Fecha de creación |
+| modified | Fecha y Hora | No | No | /// | Fecha de modificación |
+
+| Universidad | | | | | |
+| -- | -- | -- | -- | -- | -- |
+| Atributo  | Tipo  | Nulo | Clave | Predeterminado | Descripción |
+| name | Cadena | No | No | Ninguno | Nombre de la universidad |
+| acronym | Cadena | No | No | Ninguno | Acrónimo de la universidad |
+| web_page | URL | No | No | Ninguno | Página web de la universidad |
+| description | Texto | No | No | Ninguno | Descripción de la universidad |
+| status | Booleano | No | No | true | Estatus de la universidad |
+| created | Fecha y Hora | No | No | /// | Fecha de creación |
+| modified | Fecha y Hora | No | No | /// | Fecha de modificación |
+| user_created | Relación | Sí | No | Ninguno | Usuario que creó la universidad |
+| user_modified | Relación | Sí | No | Ninguno | Usuario que modificó la universidad |
 ...
 
 ##  Diagrama Entidad-Relación
