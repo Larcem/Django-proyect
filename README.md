@@ -356,47 +356,259 @@ class UniversityDetail(generics.RetrieveUpdateDestroyAPIView):
     admin.site.register(University)
 ```
 ##  FrontEnd (REACT)
-    Se seleccionó la siguiente plantilla para el usuario final (No administrador).
+    A continuación tenemos la clase api.js que es fundamental en el FrontEnd: Este archivo de servicios API en React interactúa con una API para obtener, agregar, eliminar y actualizar datos de diferentes recursos. Utiliza Axios para realizar peticiones HTTP. Las funciones se organizan por recurso, como asistencias, estudiantes, faltas de asistencia, etc. Cada función realiza una petición HTTP específica para interactuar con la API. El archivo proporciona una capa de abstracción para interactuar con la API de manera segura y eficiente. Las funciones para obtener datos realizan peticiones GET a la API. Las funciones para agregar datos realizan peticiones POST a la API. Las funciones para eliminar datos realizan peticiones DELETE a la API. Las funciones para actualizar datos realizan peticiones PUT a la API. El archivo también incluye una función para fetch asistencias que utiliza la función fetch para obtener datos de asistencias.
+```python
+import axios from 'axios';
 
-    Demo online:
-    URL: ...
+const API_URL = 'http://127.0.0.1:8000/api';
 
-    Se muestran las actividades realizadas para adecuación de plantillas, vistas, formularios en Django.
-    ...
+// Funciones para Asistencia
+export const getAllAsistencias = () => {
+    return axios.get(`${API_URL}/asistencias/`);
+};
 
-##  CRUD - Core Business - Clientes finales
-    El núcleo de negocio del sistema de inscripciones tiene valor de aceptación para los cliente finales (alumnos) radica en realizar el proceso de inscripción propiamente, que empieza desde que:
+export const getAsistenciaById = (id) => {
+    return axios.get(`${API_URL}/asistencias/${id}/`);
+};
+
+// Funciones para Estudiante
+export const getAllEstudiantes = () => {
+    return axios.get(`${API_URL}/estudiantes/`);
+};
+
+export const getEstudianteById = (id) => {
+    return axios.get(`${API_URL}/estudiantes/${id}/`);
+};
+
+// Funciones para FaltaAsistencia
+export const getAllFaltasAsistencia = () => {
+    return axios.get(`${API_URL}/faltas-asistencia/`);
+};
+
+export const getFaltaAsistenciaById = (id) => {
+    return axios.get(`${API_URL}/faltas-asistencia/${id}/`);
+};
+
+// Funciones para FaltaPago
+export const getAllFaltasPago = () => {
+    return axios.get(`${API_URL}/faltas-pago/`);
+};
+
+export const getFaltaPagoById = (id) => {
+    return axios.get(`${API_URL}/faltas-pago/${id}/`);
+};
+
+// Funciones para Justificacion
+export const getAllJustificaciones = () => {
+    return axios.get(`${API_URL}/justificaciones/`);
+};
+
+export const getJustificacionById = (id) => {
+    return axios.get(`${API_URL}/justificaciones/${id}/`);
+};
+
+// Funciones para Pago
+export const getAllPagos = () => {
+    return axios.get(`${API_URL}/pagos/`);
+};
+
+export const getPagoById = (id) => {
+    return axios.get(`${API_URL}/pagos/${id}/`);
+};
+
+// Funciones para Servicio
+export const getAllServicios = () => {
+    return axios.get(`${API_URL}/servicios/`);
+};
+
+export const getServicioById = (id) => {
+    return axios.get(`${API_URL}/servicios/${id}/`);
+};
+
+// Funciones para University
+export const getAllUniversidades = () => {
+    return axios.get(`${API_URL}/universidades/`);
+};
+
+export const getUniversityById = (id) => {
+    return axios.get(`${API_URL}/universidades/${id}/`);
+};
+
+// Funciones para agregar datos
+export const addAsistencia = (asistencia) => {
+    return axios.post(`${API_URL}/asistencias/`, asistencia);
+};
+
+export const addEstudiante = (estudiante) => {
+    return axios.post(`${API_URL}/estudiantes/`, estudiante);
+};
+
+export const addFaltaAsistencia = (faltaAsistencia) => {
+    return axios.post(`${API_URL}/faltas-asistencia/`, faltaAsistencia);
+};
+
+export const addFaltaPago = (faltaPago) => {
+    return axios.post(`${API_URL}/faltas-pago/`, faltaPago);
+};
+
+export const addJustificacion = (justificacion) => {
+    return axios.post(`${API_URL}/justificaciones/`, justificacion);
+};
+
+export const addPago = (pago) => {
+    return axios.post(`${API_URL}/pagos/`, pago);
+};
+
+export const addServicio = (servicio) => {
+    return axios.post(`${API_URL}/servicios/`, servicio);
+};
+
+export const addUniversity = (university) => {
+    return axios.post(`${API_URL}/universidades/`, university);
+};
+
+// Funciones para eliminar datos
+export const deleteAsistencia = (id) => {
+    return axios.delete(`${API_URL}/asistencias/${id}/`);
+};
+
+export const deleteEstudiante = (id) => {
+    return axios.delete(`${API_URL}/estudiantes/${id}/`);
+};
+
+export const deleteFaltaAsistencia = (id) => {
+    return axios.delete(`${API_URL}/faltas-asistencia/${id}/`);
+};
+
+export const deleteFaltaPago = (id) => {
+    return axios.delete(`${API_URL}/faltas-pago/${id}/`);
+};
+
+export const deleteJustificacion = (id) => {
+    return axios.delete(`${API_URL}/justificaciones/${id}/`);
+};
+
+export const deletePago = (id) => {
+    return axios.delete(`${API_URL}/pagos/${id}/`);
+};
+
+export const deleteServicio = (id) => {
+    return axios.delete(`${API_URL}/servicios/${id}/`);
+};
+
+export const deleteUniversity = (id) => {
+    return axios.delete(`${API_URL}/universidades/${id}/`);
+};
+
+// Funciones para actualizar datos
+export const updateAsistencia = (id, asistencia) => {
+    return axios.put(`${API_URL}/asistencias/${id}/`, asistencia);
+};
+
+export const updateEstudiante = (id, estudiante) => {
+    return axios.put(`${API_URL}/estudiantes/${id}/`, estudiante);
+};
+
+export const updateFaltaAsistencia = (id, faltaAsistencia) => {
+    return axios.put(`${API_URL}/faltas-asistencia/${id}/`, faltaAsistencia);
+};
+
+export const updateFaltaPago = (id, faltaPago) => {
+    return axios.put(`${API_URL}/faltas-pago/${id}/`, faltaPago);
+};
+
+export const updateJustificacion = (id, justificacion) => {
+    return axios.put(`${API_URL}/justificaciones/${id}/`, justificacion);
+};
+
+export const updatePago = (id, pago) => {
+    return axios.put(`${API_URL}/pagos/${id}/`, pago);
+};
+
+export const updateServicio = (id, servicio) => {
+    return axios.put(`${API_URL}/servicios/${id}/`, servicio);
+};
+
+export const updateUniversity = (id, university) => {
+    return axios.put(`${API_URL}/universidades/${id}/`, university);
+};
+
+export const fetchAsistencias = async () => {
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching asistencias:', error);
+      throw error;
+    }
+  };
+```
+
+##  Serializer
+    Este archivo define serializadores para modelos de Django utilizando rest_framework. Los serializadores convierten objetos de modelos en datos serializados para API. Se definen 9 serializadores para diferentes modelos, incluyendo User, Asistencia, Estudiante, etc. Cada serializador incluye todos los campos del modelo (__all__). Estos serializadores se utilizan en vistas de Django Rest Framework para devolver datos en formato JSON.
+```python
+    from rest_framework import serializers
+from django.contrib.auth.models import User
+from .models import Asistencia, Estudiante , FaltaAsistencia , FaltaPago , Justificacion , Pago, Servicio , University
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
+    
+class AsistenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Asistencia
+        fields = '__all__'
+
+class EstudianteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Estudiante
+        fields = '__all__'
+
+class FaltaAsistenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FaltaAsistencia
+        fields = '__all__'
+
+class FaltaPagoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FaltaPago
+        fields = '__all__'
+
+class JustificacionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Justificacion
+        fields = '__all__'
+
+class PagoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pago
+        fields = '__all__'
+
+class ServicioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Servicio
+        fields = '__all__'
+
+class UniversitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = University
+        fields = '__all__'
+```
+##Funcionamiento
+
     1. El alumno inicia sesión.
     2. El alumno selecciona el o los cursos donde desea realizar una inscripción.
     3. El alumno selecciona el grupo de laboatorio donde desea incribirse.
     4. El alumno puede tener la posibilidad de anular una incripción por varias razones: cambio de grupo, corregir error, etc.
     5. El alumno puede ver el consolidado de sus inscripciones.
     6. El alumno cierra sesión.
-
-    Todas y cada una de estas pantallas debe funcionar en la plantilla bootstrap.
-    A continuación se muestran las actividades realizadas para su construcción:
-    ...
-
-##  Servicios mediante una API RESTful
-    Se ha creado una aplicación que pondra a disposición cierta información para ser consumida por otros clientes HTTP.
-    1. GET : Con el método get se devolverá la lista de cursos, grupos y horarios establecidos para que el alumno sobre todo vea esta información en cualquier otro medio. En formato JSON. 
-    2. POST : Con este método se enviara el código del alumno y se devolvera sus inscripciones. En formato JSON.
-    
-    Ejemplo: Prueba en Página web, aplicación móvil, PDF, etc.
-    Se especifican los pasos para crear el servicio RestFul
-    ...
-
-##  Operaciones asíncronas AJAX
-    Se propone el uso de AJAX para realizar la asignación de carga académica a los docentes que estan registrados. Esta operación la realizará el usuario operador encargado por el DAISI.
-    Se muestran los pasos necesarios a realizar.
-    ....
-
-##  Investigación: Email, Upload.
-    - Email: Se utilizará la funcionalidad del uso de envío de correos electrónicos cuando el proceso de inscripciones culmine y al profesor le llegue la lista de alumnos inscritos en sus grupos a cargo.
-    - Upload: Se utilizará esta funcionalidad para subír, archivos CSV para importar y exportar información en el sistema.
-    Se muestran los pasos realizados para su funcionamiento correcto.
-    ...
-
 Github del proyecto:
 
 URL en Heroku:
@@ -421,23 +633,16 @@ etc…
 
 [last-commit]: https://img.shields.io/github/last-commit/rescobedoq/pw2?label=Last%20Commit
 
-[Debian]: https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white
-[debian-site]: https://www.debian.org/index.es.html
-
 [Git]: https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white
 [git-site]: https://git-scm.com/
 
 [GitHub]: https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white
 [github-site]: https://github.com/
 
-[Vim]: https://img.shields.io/badge/VIM-%2311AB00.svg?style=for-the-badge&logo=vim&logoColor=white
-[vim-site]: https://www.vim.org/
-
 [Java]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white
 [java-site]: https://docs.oracle.com/javase/tutorial/
 
 
-[![Debian][Debian]][debian-site]
 [![Git][Git]][git-site]
 [![GitHub][GitHub]][github-site]
 [![Vim][Vim]][vim-site]
