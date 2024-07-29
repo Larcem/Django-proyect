@@ -188,13 +188,174 @@
 ...
 
 ##  Diagrama Entidad-Relación
+    En la siguiente imagen podemos apreciar el diagrama de Entidad-Relación:
 ![ER Diagram](erd.png)
 
-##  Administración con Django
-    Se muestran los pasos realizados para crear el Proyecto, la aplicación, creacion de modelos, migraciones y habilitación del panel de administración en Django.
-    ...
+##  BACKEND (DJango)
+    A continuación se muestra el backend de nuestra aplicación:
+    Clase serializer: Este código permite convertir objetos de modelo en datos que pueden ser        enviados a través de una API REST, lo que facilita la comunicación entre la aplicación y los     clientes que la utilizan.
+```python
+from rest_framework import serializers
+from django.contrib.auth.models import User
+from .models import Asistencia, Estudiante , FaltaAsistencia , FaltaPago , Justificacion , Pago, servicio , University
 
-##  Plantillas Bootstrap
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
+    
+class AsistenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Asistencia
+        fields = '__all__'
+
+class EstudianteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Estudiante
+        fields = '__all__'
+
+class FaltaAsistenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FaltaAsistencia
+        fields = '__all__'
+
+class FaltaPagoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FaltaPago
+        fields = '__all__'
+
+class JustificacionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Justificacion
+        fields = '__all__'
+
+class PagoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pago
+        fields = '__all__'
+
+class ServicioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = servicio
+        fields = '__all__'
+
+class UniversitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = University
+        fields = '__all__'
+```
+    Clase views.py: Este sección del proyecto define una serie de vistas que permiten crear, leer, actualizar y eliminar objetos de diferentes modelos en una aplicación Django que utiliza DRF.
+```python
+    from rest_framework import generics
+from rest_framework import generics
+from .models.Asistencia import Asistencia
+from .models.Estudiante import Estudiante
+from .models.FaltaAsistencia import FaltaAsistencia
+from .models.FaltaPago import FaltaPago
+from .models.Justificacion import Justificacion
+from .models.Pago import Pago
+from .models.servicio import servicio
+from .models.University import University
+from .serializers import AsistenciaSerializer, EstudianteSerializer, FaltaAsistenciaSerializer, FaltaPagoSerializer, JustificacionSerializer, PagoSerializer, ServicioSerializer, UniversitySerializer
+
+from .serializers import AsistenciaSerializer, EstudianteSerializer, FaltaAsistenciaSerializer, FaltaPagoSerializer, JustificacionSerializer, PagoSerializer, ServicioSerializer, UniversitySerializer
+
+# Vistas para el modelo Asistencia
+class AsistenciaListCreate(generics.ListCreateAPIView):
+    queryset = Asistencia.objects.all()
+    serializer_class = AsistenciaSerializer
+
+class AsistenciaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Asistencia.objects.all()
+    serializer_class = AsistenciaSerializer
+
+# Vistas para el modelo Estudiante
+class EstudianteListCreate(generics.ListCreateAPIView):
+    queryset = Estudiante.objects.all()
+    serializer_class = EstudianteSerializer
+
+class EstudianteDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Estudiante.objects.all()
+    serializer_class = EstudianteSerializer
+
+# Vistas para el modelo FaltaAsistencia
+class FaltaAsistenciaListCreate(generics.ListCreateAPIView):
+    queryset = FaltaAsistencia.objects.all()
+    serializer_class = FaltaAsistenciaSerializer
+
+class FaltaAsistenciaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FaltaAsistencia.objects.all()
+    serializer_class = FaltaAsistenciaSerializer
+
+# Vistas para el modelo FaltaPago
+class FaltaPagoListCreate(generics.ListCreateAPIView):
+    queryset = FaltaPago.objects.all()
+    serializer_class = FaltaPagoSerializer
+
+class FaltaPagoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FaltaPago.objects.all()
+    serializer_class = FaltaPagoSerializer
+
+# Vistas para el modelo Justificacion
+class JustificacionListCreate(generics.ListCreateAPIView):
+    queryset = Justificacion.objects.all()
+    serializer_class = JustificacionSerializer
+
+class JustificacionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Justificacion.objects.all()
+    serializer_class = JustificacionSerializer
+
+# Vistas para el modelo Pago
+class PagoListCreate(generics.ListCreateAPIView):
+    queryset = Pago.objects.all()
+    serializer_class = PagoSerializer
+
+class PagoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Pago.objects.all()
+    serializer_class = PagoSerializer
+
+# Vistas para el modelo Servicio
+class ServicioListCreate(generics.ListCreateAPIView):
+    queryset = servicio.objects.all()
+    serializer_class = ServicioSerializer
+
+class ServicioDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = servicio.objects.all()
+    serializer_class = ServicioSerializer
+
+# Vistas para el modelo University
+class UniversityListCreate(generics.ListCreateAPIView):
+    queryset = University.objects.all()
+    serializer_class = UniversitySerializer
+
+class UniversityDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = University.objects.all()
+    serializer_class = UniversitySerializer
+```
+    Clase admin.py: Este código registra los modelos de la aplicación en la interfaz de administración de Django, permitiendo a los administradores crear, leer, actualizar y eliminar objetos de manera sencilla y visual. La interfaz de administración es una herramienta segura y útil para gestionar los datos de la aplicación. Los modelos registrados incluyen Estudiante, Pago, Servicio, FaltaPago, Asistencia, FaltaAsistencia, Justificación y Universidad.
+    
+```python
+    from django.contrib import admin
+    from .models.Estudiante import Estudiante
+    from .models.Pago import Pago
+    from .models.servicio import servicio
+    from .models.FaltaPago import FaltaPago
+    from .models.Asistencia import Asistencia
+    from .models.FaltaAsistencia import FaltaAsistencia
+    from .models.Justificacion import Justificacion
+    from .models.University import University
+    
+    admin.site.register(Estudiante)
+    admin.site.register(Pago)
+    admin.site.register(FaltaPago)
+    admin.site.register(servicio)
+    admin.site.register(Asistencia)
+    admin.site.register(FaltaAsistencia)
+    admin.site.register(Justificacion)
+    admin.site.register(University)
+```
+##  FrontEnd (REACT)
     Se seleccionó la siguiente plantilla para el usuario final (No administrador).
 
     Demo online:
