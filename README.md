@@ -188,7 +188,7 @@
 ...
 
 ##  Diagrama Entidad-Relación
-    ...
+    ![ER Diagram](erd.png)
 
 ##  Administración con Django
     Se muestran los pasos realizados para crear el Proyecto, la aplicación, creacion de modelos, migraciones y habilitación del panel de administración en Django.
